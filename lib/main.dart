@@ -43,20 +43,32 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   void _addBoxContainer() {
-    setState(() {
-      _boxContainerList.add(
-        BoxContainerModel(
-          boxContainerId: '${_boxContainerList.length}',
-          boxContainerColor: Colors.amber.shade100,
-        ),
-      );
-    });
+    if (_boxContainerList.length <= 3) {
+      setState(() {
+        _boxContainerList.add(
+          BoxContainerModel(
+            boxContainerId: '${_boxContainerList.length}',
+            boxContainerColor: Colors.amber.shade100,
+          ),
+        );
+      });
+    }
   }
 
   void _deleteBoxContainer(int index) {
     setState(() {
       _boxContainerList.removeAt(index);
     });
+    print('_deleteBoxContainer - ${[index]}');
+  }
+
+  showFloatingActionButton() {
+    if (_boxContainerList.length <= 3) {
+      return FloatingActionButton(
+        onPressed: _addBoxContainer,
+        child: Icon(Icons.add),
+      );
+    }
   }
 
   @override
@@ -95,10 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _addBoxContainer,
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: showFloatingActionButton(),
     );
   }
 }
