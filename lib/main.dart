@@ -1,5 +1,6 @@
 import 'package:box_color_list_1/container_model.dart';
 import 'package:flutter/material.dart';
+import 'package:box_color_list_1/box_tile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (_boxContainerList.length <= 3) {
       return FloatingActionButton(
         onPressed: _addBoxContainer,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       );
     }
   }
@@ -75,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('box color list 1'),
+        title: const Text('box color list 1'),
       ),
       body: Center(
         child: ListView.builder(
@@ -95,19 +96,45 @@ class _MyHomePageState extends State<MyHomePage> {
                     _boxContainerList[index].deleteContainerBox,
                   ),
                 ),
-                subtitle: Container(
-                  color: Colors.grey,
-                  height: 70,
-                  child: Row(
-                    children: [],
-                  ),
-                ),
+                subtitle: BoxTile(),
               ),
             );
           },
         ),
       ),
       floatingActionButton: showFloatingActionButton(),
+    );
+  }
+}
+
+class BoxTile extends StatefulWidget {
+  const BoxTile({
+    super.key,
+  });
+
+  @override
+  State<BoxTile> createState() => _BoxTileState();
+}
+
+class _BoxTileState extends State<BoxTile> {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            GestureDetector(
+              child: CircleAvatar(
+                radius: 30,
+                backgroundColor: Colors.lightBlue,
+              ),
+            ),
+            Text('box name...'),
+            Text('box id ...')
+          ],
+        ),
+      ),
     );
   }
 }
